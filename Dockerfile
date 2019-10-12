@@ -1,17 +1,10 @@
-# Start from a Debian image with the latest version of Go installed
-# and a workspace (GOPATH) configured at /go.
-FROM golang
+# Start from alpine to reduce size
+FROM golang:alpine
 
-# Copy the local package files to the container's workspace.
-ADD . /go/src/bitcoin-payments
-
-# Build the outyet command inside the container.
-# (You may fetch or manage dependencies here,
-# either manually or with a tool like "godep".)
-RUN go install github.com/golang/example/outyet
-
-# Run the outyet command by default when the container starts.
-ENTRYPOINT /go/bin/outyet
-
-# Document that the service listens on port 8080.
-EXPOSE 8080
+RUN mkdir /app
+ADD . /app/
+WORKDIR /app
+RUN go build -o main .
+RUN adduser -S -D -H -h /app appuser
+USER appuser
+CMD ["./main"]
