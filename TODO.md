@@ -1,5 +1,7 @@
 # Tasks TODO
 
+TODO Add: https://lgtm.com/projects/g/alibaba/AliSQLBackup/?mode=list
+
 ## Research
 
 OpenBazaar's SPV Wallet
