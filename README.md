@@ -75,6 +75,53 @@ pending: A transaction has been received and waiting for confirmation or payment
 
 completed: Payment has been sent to Store Address and has X confirmations
 
+### Payment process
+
+Payments are a way to the system to pay accounts
+
+#### Payments Definitions
+
+__Store__: The Store using the BPA by API
+
+#### Payment process definition
+
+1) The store request to make a payment to one or several addressess with an amount for each one of them, payment is valid for 60 minutes
+2) The BPA Returns an ammount of bitcoin necessary to make the payments including fees for transactions and 2% extra for BPA commission and an expiration date for the payment
+3) The store sends the ammount and the id of the payment to BPA
+4) The BPA sends all the transactions and the 2% to the designated comissions address
+
+#### Create a payment
+
+Request
+
+```sh
+curl -X POST https://bpa.io/api/v1/payment \
+-d \
+{
+  "addresses": [
+    {
+      "address": "12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS",
+      "ammount": 0.2
+    },
+    {
+      "address": "12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS",
+      "ammount": 0.3
+    },
+  ]
+}
+```
+
+Response
+
+ammount calculation is sum of addresses amount + 2% (sum of ADM) + transaction fees (n addresses + 1)
+
+```sh
+{
+  "ammount": 0.54,
+  "expires": "2019-10-11T02:34:27.769Z"
+}
+```
+
 ## Inspired by
 
 https://github.com/OpenBazaar/spvwallet
