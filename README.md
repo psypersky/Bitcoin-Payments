@@ -128,7 +128,7 @@ ammount calculation is sum of addresses amount + 2% (sum of ADM) + transaction f
 
 The system will be implemented using the OpenBazaar gPRC API to connect to the bitcoin network
 
-OpenBazaar gPRC have its own lite sql database created by default where all the keychain is stored, this will be replaced by our own sql datatabase without editing the core functionality of the SPV wallet, just change the storage to an external database.
+OpenBazaar have its own lite sql database created by default where all the keychain is stored, this will be replaced by our own sql datatabase without editing the core functionality of the SPV wallet, just change the storage to an external database.
 
 All the new funtionality will be created as an API level, we don't want to fork SPV wallet to avoid unecesary maintance, in the same SQL database all the expiration dates could be saved.
 
