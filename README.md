@@ -4,15 +4,9 @@ Microservice to accept bitcoin payments
 
 ## One Address per payment
 
-### Definitions
-
-Charge: When a user request to make a payment a "Charge" is created, for this a bitcoin Address is created and monitored, charges are temporal and should only live for X ammount of minutes.
-
-Store Address (SA): One address that its owned by the store
-
-BPA Comissions Address (BPACA): One address owned by the BPA system
-
 ### Buying process
+
+#### Description
 
 1) Registered User enters Store.com
 2) User resquest to make a payment
@@ -24,13 +18,21 @@ BPA Comissions Address (BPACA): One address owned by the BPA system
 6) Store calls the BPA for information about this address and receives that a new payment was done for X bitcoins
 7) Store creates a virtual credit for the user
 
-### Details
+#### Definitions
+
+Charge: When a user request to make a payment a "Charge" is created, for this a bitcoin Address is created and monitored, charges are temporal and should only live for X ammount of minutes.
+
+Store Address (SA): One address that its owned by the store
+
+BPA Comissions Address (BPACA): One address owned by the BPA system
+
+#### Details
 
 When the Charge time expires the address is sent to an "expired" storage, along with its public and private keys, this address will stop being monitored and never be used again.
 
-### Proposed Endpoints
+#### Proposed Endpoints
 
-#### Creating a charge
+##### Creating a charge
 
 Request
 
@@ -47,7 +49,7 @@ Response
 }
 ```
 
-#### Getting a charge
+##### Getting a charge
 
 Request
 
@@ -121,6 +123,14 @@ ammount calculation is sum of addresses amount + 2% (sum of ADM) + transaction f
   "expires": "2019-10-11T02:34:27.769Z"
 }
 ```
+
+## Implementation
+
+The system will be implemented using the OpenBazaar gPRC API to connect to the bitcoin network
+
+OpenBazaar gPRC have its own lite sql database created by default where all the keychain is stored, this will be replaced by our own sql datatabase without editing the core functionality of the SPV wallet, just change the storage to an external database.
+
+All the new funtionality will be created as an API level, we don't want to fork SPV wallet to avoid unecesary maintance, in the same SQL database all the expiration dates could be saved.
 
 ## Inspired by
 
