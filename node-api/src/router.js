@@ -1,7 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const { getBalance } = require('./lib/spvwallet')
 
-router.get('/', (req, res) => {})
+const { testAPI } = require('./lib/spvwallet')
+const { chargeFeature, paymentFeature } = require('./features')
+
+// Just for testing the spvwallet
+router.get('/', async () => {
+  await testAPI()
+})
+
+// TODO: security? auth?
+
+router.route('/charge').post(chargeFeature.post)
+router.route('/charge/:address').get(chargeFeature.get)
+
+router.route('/payment').post(paymentFeature.post)
+router.route('/payment/:paymentId').post(paymentFeature.postId)
 
 module.exports = router
