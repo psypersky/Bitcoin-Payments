@@ -1,24 +1,30 @@
-module.exports = (request, response) => {
-  console.log('getting charge')
-  // TODO: 
-  // get the address from params
-  // look for the address in the store and get expiration
-  // get related payment if any
-  // if payment => return original_ammount and final_ammount
+const ChargeModel = require('./model')
+const PaymentModel = require('../payment/model')
 
-  /**
-   * Payment statuses:
-     new: Charge has been created
-     pending: A transaction has been received and waiting for confirmation or 
-     payment has been sent to SA address and waiting for confirmations.
-     completed: Payment has been sent to Store Address and has X confirmations
-   */
-
-  return {
-    address: '12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS',
-    expires: '2019-10-11T02:34:27.769Z',
-    payment_status: 'completed',
-    original_ammount: 0.3,
-    final_ammount: 0.2892636,
+module.exports = async (request, response) => {
+  const { address } = request.params
+  const charge = await ChargeModel.findOne({ address })
+  
+  if (!charge) {
+    response.status(400).send({
+      msg: 'Invalid address'
+    })
   }
+
+  let toReturn = {
+    address: charge.address,
+    expires: charge.expires,
+  }
+
+  if (charge.payment_id) {
+    const payment = await PaymentModel.findById(charge.payment_id)
+    toReturn = {
+      ...toReturn,
+      payment_status: payment.status,
+      original_amount: payment.original_amount,
+      final_amount: payment.final_amount,
+    }
+  }
+
+  response.status(200).send(toReturn)
 }

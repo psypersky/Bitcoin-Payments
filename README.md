@@ -30,6 +30,9 @@ BPA Comissions Address (BPACA): One address owned by the BPA system
 
 When the Charge time expires the address is sent to an "expired" storage, along with its public and private keys, this address will stop being monitored and never be used again.
 
+#### POSTMAN
+https://www.getpostman.com/collections/f38dfedff96c54656b93
+
 #### Proposed Endpoints
 
 ##### Creating a charge
@@ -64,8 +67,8 @@ Response
   "address": "12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS",
   "expires": "2019-10-11T02:34:27.769Z",
   "payment_status": "completed",
-  "original_ammount": 0.3,
-  "final_ammount:": 0.2892636
+  "original_amount": 0.3,
+  "final_amount:": 0.2892636
 }
 ```
 
@@ -103,11 +106,11 @@ curl -X POST https://bpa.io/api/v1/payment \
   "addresses": [
     {
       "address": "12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS",
-      "ammount": 0.2
+      "amount": 0.2
     },
     {
       "address": "12AaMuRnzw6vW6s2KPRAGeX53meTf8JbZS",
-      "ammount": 0.3
+      "amount": 0.3
     },
   ]
 }

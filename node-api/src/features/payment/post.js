@@ -1,6 +1,7 @@
-module.exports = (request, response) => {
-  console.log('posting payment')
+const ChargeModel = require('../charge/model')
+const PaymentModel = require('./model')
 
+module.exports = async (request, response) => {
   // TODO:
   // get addresses + amounts from the request
   // check addresses are valid
@@ -8,9 +9,31 @@ module.exports = (request, response) => {
   // ammount calculation is sum of addresses amount + 2 % (sum of ADM) + transaction fees(n addresses + 1)
   // create and store payment
 
-  return {
-    payment_id: 'on3lnj34l2n42l3n4l2',
-    ammount: 0.54,
-    expires: '2019-10-11T02:34:27.769Z',
-  }
+  const { addresses } = request.body
+  
+  await Promise.all(addresses.map(async ({address}) => {
+    const charge = await ChargeModel.findOne({ address })
+    if (!charge || charge.expires <= Date.now()) 
+      return response.status(400).send({ msg: 'Invalid address' })
+  }))
+  
+  const payment = await new PaymentModel({
+    original_amount: addresses.reduce(
+      (acc, address) => acc + address.amount,
+      0
+    ),
+  })
+  await payment.save()
+  
+  await Promise.all(addresses.map(async ({address}) => {
+    const charge = await ChargeModel.findOne({ address })
+    charge.payment_id = payment._id
+    await charge.save()
+  }))
+  
+  response.status(200).send({
+    payment_id: payment._id,
+    amount: payment.final_amount,
+    expires: payment.expires,
+  })
 }
