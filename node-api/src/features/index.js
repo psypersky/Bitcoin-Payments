@@ -1,4 +1,4 @@
 module.exports = {
   chargeFeature: require('./charge'),
-  paymentFeature: require('./payment'),
+  // paymentFeature: require('./payment'),
 }

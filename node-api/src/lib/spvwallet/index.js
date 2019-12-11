@@ -8,7 +8,7 @@ const client = new proto.pb.API(apiUrl, grpc.credentials.createInsecure())
 
 /**
  * Internal gRCP client requester
- * @param {*} method and body of the request 
+ * @param {*} method and body of the request
  */
 const makeRequest = ({ method, body = {} }) =>
   new Promise((resolve, reject) =>
@@ -18,37 +18,26 @@ const makeRequest = ({ method, body = {} }) =>
   )
 
 const testAPI = async () => {
-  console.log('ChainTip', await makeRequest({ method: 'ChainTip' }))
-  console.log('Balance', await makeRequest({ method: 'Balance' }))
+  // console.log(
+  //   'get new address',
+  //   await makeRequest({
+  //     method: 'NewAddress',
+  //     body: { key: '' },
+  //   })
+  // )
   console.log(
-    'MasterPrivateKey',
-    await makeRequest({ method: 'MasterPrivateKey' })
-  )
-  console.log(
-    'MasterPublicKey',
-    await makeRequest({ method: 'MasterPublicKey' })
-  )
-  console.log(
-    'HasKey',
-    await makeRequest({
-      method: 'HasKey',
-      body: { addr: '14NQd6XHSNVGriKj7Ke1MuZgjk4Fkx329Q' },
-    })
-  )
-  console.log('Params', await makeRequest({ method: 'Params' }))
-  console.log('Transactions', await makeRequest({ method: 'Transactions' }))
-  console.log('Peers', await makeRequest({ method: 'Peers' }))
-  console.log(
-    'GetKey',
+    'get new address',
     await makeRequest({
       method: 'GetKey',
-      body: { addr: '14NQd6XHSNVGriKj7Ke1MuZgjk4Fkx329Q' },
+      body: { addr: '17KSurhxTWLsVBeL28GNP31hRFMJ4vNAix' },
     })
   )
-  console.log('ListKeys', await makeRequest({ method: 'ListKeys' }))
-  console.log('ListAddresses', await makeRequest({ method: 'ListAddresses' }))
 }
+
+const getNewAddress = async () =>
+  await makeRequest({ method: 'NewAddress' })
 
 module.exports = {
   testAPI,
+  getNewAddress,
 }
