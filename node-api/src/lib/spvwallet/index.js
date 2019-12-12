@@ -6,38 +6,25 @@ const packageDefinition = protoLoader.loadSync(`${__dirname}/api.proto`)
 const proto = grpc.loadPackageDefinition(packageDefinition)
 const client = new proto.pb.API(apiUrl, grpc.credentials.createInsecure())
 
+const methods = {
+  NEW_ADDRESS: 'NewAddress',
+  SPEND: 'Spend',
+  GET_TX: 'GetTransaction',
+  GET_CONFIRMATIONS: 'GetConfirmations',
+}
+
 /**
  * Internal gRCP client requester
  * @param {*} method and body of the request
  */
-const makeRequest = ({ method, body = {} }) =>
+const request = ({ method, body = {} }) =>
   new Promise((resolve, reject) =>
     client[method](body, (error, response) =>
       !error ? resolve(response) : reject(error)
     )
   )
 
-const testAPI = async () => {
-  // console.log(
-  //   'get new address',
-  //   await makeRequest({
-  //     method: 'NewAddress',
-  //     body: { key: '' },
-  //   })
-  // )
-  console.log(
-    'get new address',
-    await makeRequest({
-      method: 'GetKey',
-      body: { addr: '17KSurhxTWLsVBeL28GNP31hRFMJ4vNAix' },
-    })
-  )
-}
-
-const getNewAddress = async () =>
-  await makeRequest({ method: 'NewAddress' })
-
 module.exports = {
-  testAPI,
-  getNewAddress,
+  request,
+  methods,
 }

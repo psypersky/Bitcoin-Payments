@@ -26,6 +26,8 @@ class PoolClient {
             status TEXT, 
             original_amount FLOAT,
             final_amount FLOAT,
+            storeTxId TEXT,
+            feeTxId TEXT,
             CONSTRAINT address_unique UNIQUE (address)
             )`
     )

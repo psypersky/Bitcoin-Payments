@@ -13,7 +13,9 @@ const statuses = {
 //   expires: Date,
 //   status: Statuses,
 //   original_amount: Number,
-//   final_amount: Number
+//   final_amount: Number,
+//   feeTxId: String,
+//   storeTxId: String,
 // }
 
 const create = async ({
@@ -39,9 +41,16 @@ const updateStatus = async ({ id, newStatus }) =>
     id,
   ])
 
+const addTxs = async ({ id, storeTxId, feeTxId }) =>
+  await dbClient.db.run(
+    `UPDATE charge SET storeTxId = ?, feeTxId = ?, WHERE id = ?`,
+    [storeTxId, feeTxId, id]
+  )
+
 module.exports = {
   create,
   getByAddress,
   updateStatus,
   statuses,
+  addTxs,
 }
