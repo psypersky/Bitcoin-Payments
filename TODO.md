@@ -2,12 +2,7 @@
 
 ## Tasks
 
-- [x] Go in Docker
-- [x] Http server in Go
-- [ ] Create OpenBazaar SPV Docker Image
-- [ ] Use SPV wallet as library in go
-- [ ] API in go
-
-## Later
-
-https://github.com/OpenBazaar/openbazaar-go/blob/master/cmd/restore.go
+- [x] Run bitcoind on startup
+- [x] Enable JSON PRC
+- [ ] Enable ssl in json rpc
+- [ ] Add styles to screen https://gist.github.com/ChrisWills/1337178
