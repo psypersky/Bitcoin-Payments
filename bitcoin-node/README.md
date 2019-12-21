@@ -6,6 +6,8 @@ We are using screen and nmon to monitor the server
 
 [Screen CheatSheet](http://neophob.com/2007/04/gnu-screen-cheat-sheet/)
 
+`screen -X -S [session # you want to kill] quit`
+
 ## JSON RPC
 
 [RPC Docs](https://bitcoincore.org/en/doc/0.19.0/rpc/zmq/getzmqnotifications/)
