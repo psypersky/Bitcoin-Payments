@@ -1,3 +1,11 @@
+# Development Database
+db.sqlite
+
+# dotenv environment variables file
+.env
+.env.*
+!.env.tpl
+
 # Logs
 logs
 *.log

@@ -1,4 +1,4 @@
 module.exports = {
   post: require('./post'),
-  get: require('./get'),
+  // get: require('./get'),
 }

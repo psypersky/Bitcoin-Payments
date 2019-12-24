@@ -6,7 +6,7 @@ const { chargeFeature } = require('./features')
 // TODO: security? auth?
 
 router.route('/charge').post(chargeFeature.post)
-router.route('/charge/:address').get(chargeFeature.get)
+// router.route('/charge/:address').get(chargeFeature.get)
 
 // router.route('/payment').post(paymentFeature.post)
 // router.route('/payment/:paymentId').post(paymentFeature.postId)

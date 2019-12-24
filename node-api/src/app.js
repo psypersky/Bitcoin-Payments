@@ -1,3 +1,4 @@
+require('dotenv').config({ path: __dirname + '/../env/.env.dev' })
 const express = require('express')
 const bodyParser = require('body-parser')
 const router = require('./router')
@@ -31,4 +32,5 @@ async function startServer() {
 
 startServer().catch(err => {
   console.error('[app] listening', err.message, err.stack)
+  // TODO: Exit with error
 })

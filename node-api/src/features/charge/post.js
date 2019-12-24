@@ -1,12 +1,13 @@
+const asyncHandler = require('express-async-handler')
 const ChargeModel = require('./model')
-const spvwallet = require('../../lib/spvwallet')
+const { getNewAddress } = require('../../lib/bitcoin-rpc')
 
-module.exports = async (request, response) => {
-  const { addr } = await spvwallet.request({
-    method: spvwallet.methods.NEW_ADDRESS,
-  })
+async function chargePost (request, response) {
+  const addr = await getNewAddress()
 
   const charge = await ChargeModel.create({ address: addr })
 
   response.status(200).send(charge)
 }
+
+module.exports = asyncHandler(chargePost)

@@ -1,5 +1,5 @@
-var sqlite = require('sqlite-async')
-
+const sqlite = require('sqlite-async')
+// TODO: Send this to an .env
 const DBSOURCE = 'db.sqlite'
 
 class PoolClient {
@@ -21,9 +21,9 @@ class PoolClient {
     await this.database.run(
       `CREATE TABLE IF NOT EXISTS charge (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            address TEXT UNIQUE, 
-            expires TIMESTAMP, 
-            status TEXT, 
+            address TEXT UNIQUE,
+            expires TIMESTAMP,
+            status TEXT,
             original_amount FLOAT,
             final_amount FLOAT,
             storeTxId TEXT,
